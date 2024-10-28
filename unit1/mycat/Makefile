@@ -1,10 +1,22 @@
-all: build build/mycat
+# Nombre del compilador
+CC = gcc
 
-build:
-	mkdir -p build
+# Opciones del compilador
+CFLAGS = -Wall -g
 
-build/mycat: main.cpp 
-	 g++ -g -Wall -o build/mycat main.cpp
+# El nombre del archivo ejecutable
+TARGET = main
 
+# Instrucciones para compilar el programa
+all: $(TARGET)
+
+$(TARGET): main.o
+	$(CC) $(CFLAGS) -o $(TARGET) main.o
+
+# Regla para generar el archivo objeto main.o
+main.o: main.c
+	$(CC) $(CFLAGS) -c main.c
+
+# Limpiar archivos compilados
 clean:
-	 rm build/*
+	rm -f $(TARGET) *.o
